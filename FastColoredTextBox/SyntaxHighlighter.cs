@@ -13,19 +13,18 @@ namespace FastColoredTextBoxNS
         //styles
         protected static readonly Platform platformType = PlatformType.GetOperationSystemPlatform();
         public readonly Style BlueBoldStyle = new TextStyle(Brushes.Blue, null, FontStyle.Bold);
-        public readonly Style BlueStyle = new TextStyle(Brushes.Blue, null, FontStyle.Regular);
+        public readonly Style BlueStyle = new TextStyle(new SolidBrush(Color.FromArgb(255, 81, 156, 206)), null, FontStyle.Regular);
         public readonly Style BoldStyle = new TextStyle(null, null, FontStyle.Bold | FontStyle.Underline);
-        public readonly Style BrownStyle = new TextStyle(Brushes.Brown, null, FontStyle.Italic);
+        public readonly Style BrownStyle = new TextStyle(new SolidBrush(Color.FromArgb(255, 214, 157, 133)), null, FontStyle.Regular);
         public readonly Style GrayStyle = new TextStyle(Brushes.Gray, null, FontStyle.Regular);
-        public readonly Style GreenStyle = new TextStyle(Brushes.Green, null, FontStyle.Italic);
-        public readonly Style MagentaStyle = new TextStyle(Brushes.Magenta, null, FontStyle.Regular);
+        public readonly Style GreenStyle = new TextStyle(new SolidBrush(Color.FromArgb(255, 96, 139, 78)), null, FontStyle.Regular);
+        public readonly Style MagentaStyle = new TextStyle(new SolidBrush(Color.FromArgb(255, 184, 215, 163)), null, FontStyle.Regular);
         public readonly Style MaroonStyle = new TextStyle(Brushes.Maroon, null, FontStyle.Regular);
-        public readonly Style RedStyle = new TextStyle(Brushes.Red, null, FontStyle.Regular);
+        public readonly Style RedStyle = new TextStyle(Brushes.Gainsboro, null, FontStyle.Regular);
         public readonly Style BlackStyle = new TextStyle(Brushes.Black, null, FontStyle.Regular);
         //
         protected readonly Dictionary<string, SyntaxDescriptor> descByXMLfileNames =
             new Dictionary<string, SyntaxDescriptor>();
-
         protected readonly List<Style> resilientStyles = new List<Style>(5);
 
         protected Regex CSharpAttributeRegex,
@@ -102,7 +101,7 @@ namespace FastColoredTextBoxNS
 
         protected Regex SQLCommentRegex1,
                       SQLCommentRegex2,
-                      SQLCommentRegex3, 
+                      SQLCommentRegex3,
                       SQLCommentRegex4;
 
         protected Regex SQLFunctionsRegex;
@@ -131,7 +130,8 @@ namespace FastColoredTextBoxNS
             }
         }
 
-        public SyntaxHighlighter(FastColoredTextBox currentTb) {
+        public SyntaxHighlighter(FastColoredTextBox currentTb)
+        {
             this.currentTb = currentTb;
         }
 
@@ -628,7 +628,7 @@ namespace FastColoredTextBoxNS
                     CommentStyle = GreenStyle;
                     NumberStyle = MagentaStyle;
                     AttributeStyle = GreenStyle;
-                    ClassNameStyle = BoldStyle;
+                    //ClassNameStyle = BoldStyle;
                     KeywordStyle = BlueStyle;
                     CommentTagStyle = GrayStyle;
                     break;
@@ -650,7 +650,7 @@ namespace FastColoredTextBoxNS
                 case Language.XML:
                     CommentStyle = GreenStyle;
                     XmlTagBracketStyle = BlueStyle;
-                    XmlTagNameStyle = MaroonStyle;
+                    XmlTagNameStyle = BrownStyle;
                     XmlAttributeStyle = RedStyle;
                     XmlAttributeValueStyle = BlueStyle;
                     XmlEntityStyle = RedStyle;
@@ -679,14 +679,14 @@ namespace FastColoredTextBoxNS
                     KeywordStyle3 = GrayStyle;
                     break;
                 case Language.SQL:
-                    StringStyle = RedStyle;
+                    StringStyle = BrownStyle;
                     CommentStyle = GreenStyle;
                     NumberStyle = MagentaStyle;
-                    KeywordStyle = BlueBoldStyle;
-                    StatementsStyle = BlueBoldStyle;
-                    FunctionsStyle = MaroonStyle;
-                    VariableStyle = MaroonStyle;
-                    TypesStyle = BrownStyle;
+                    KeywordStyle = BlueStyle;
+                    StatementsStyle = BlueStyle;
+                    FunctionsStyle = RedStyle;
+                    VariableStyle = MagentaStyle;
+                    TypesStyle = RedStyle;
                     break;
                 case Language.JSON:
                     StringStyle = BrownStyle;
@@ -732,6 +732,7 @@ namespace FastColoredTextBoxNS
             //class name highlighting
             range.SetStyle(ClassNameStyle, CSharpClassNameRegex);
             //keyword highlighting
+
             range.SetStyle(KeywordStyle, CSharpKeywordRegex);
 
             //find document comments
@@ -899,7 +900,7 @@ namespace FastColoredTextBoxNS
         protected void InitXMLRegex()
         {
             XMLCommentRegex1 = new Regex(@"(<!--.*?-->)|(<!--.*)", RegexOptions.Singleline | RegexCompiledOption);
-            XMLCommentRegex2 = new Regex(@"(<!--.*?-->)|(.*-->)",  RegexOptions.Singleline | RegexOptions.RightToLeft | RegexCompiledOption);
+            XMLCommentRegex2 = new Regex(@"(<!--.*?-->)|(.*-->)", RegexOptions.Singleline | RegexOptions.RightToLeft | RegexCompiledOption);
 
             XMLTagRegex = new Regex(@"<\?|</|>|<|/>|\?>", RegexCompiledOption);
             XMLTagNameRegex = new Regex(@"<[?](?<range1>[x][m][l]{1})|<(?<range>[!\w:\-\.]+)", RegexCompiledOption);

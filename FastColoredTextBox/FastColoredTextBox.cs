@@ -8577,12 +8577,12 @@ window.status = ""#print"";
 
         public ServiceColors()
         {
-            CollapseMarkerForeColor = Color.Silver;
-            CollapseMarkerBackColor = Color.White;
-            CollapseMarkerBorderColor = Color.Silver;
-            ExpandMarkerForeColor = Color.Red;
-            ExpandMarkerBackColor = Color.White;
-            ExpandMarkerBorderColor = Color.Silver;
+            CollapseMarkerForeColor = Color.LightGray;
+            CollapseMarkerBackColor = Color.FromArgb(255, 30, 30, 30);
+            CollapseMarkerBorderColor = Color.Black;
+            ExpandMarkerForeColor = Color.LightGray;
+            ExpandMarkerBackColor = Color.FromArgb(255, 30, 30, 30); ;
+            ExpandMarkerBorderColor = Color.Black;
         }
     }
 

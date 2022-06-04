@@ -79,7 +79,7 @@ namespace FastColoredTextBoxNS
             SaveEOL = Environment.NewLine;
 
             //read lines of file
-            fs = new FileStream(fileName, FileMode.Open);
+            fs = File.OpenRead(fileName);// new FileStream(fileName, FileMode.Open);
             var length = fs.Length;
             //read signature
             enc = DefineEncoding(enc, fs);
